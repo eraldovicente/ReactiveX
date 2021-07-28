@@ -6,7 +6,7 @@ const observer: Observer<any> = {
      complete: () => console.info('completado')
 };
 
-const intervalo$ = new Observable( subscriber => {
+const intervalo$ = new Observable<number>( subscriber => {
 
      // Crear un contador, 1, 2, 3, 4, 5,...
      let count = 0;
