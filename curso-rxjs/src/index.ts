@@ -1,10 +1,14 @@
-import { asyncScheduler, of, range } from 'rxjs';
+import { interval, timer } from 'rxjs';
 
-// const src$ = of(1,2,3,4,5);
-const src$ = range(1,5, asyncScheduler);
+const observer = {
+     next: val => console.log('next:', val),
+     complete: () => console.log('Completado')     
+}
 
-console.log('inicio');
-src$.subscribe( console.log );
-console.log('fin');
+const interval$ = interval(1000);
+const timer$ = timer(1000);
 
-
+console.log('Inicio');
+// interval$.subscribe( observer );
+timer$.subscribe( observer );
+console.log('Fin');
