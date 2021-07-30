@@ -1,47 +1,15 @@
-import { of, from } from 'rxjs';
+import { fromEvent, range } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-/**
- * of = toma argumentos y genera una secuencia
- * from = array, promise, iterable, observable
-*/
+// range(1,5).pipe(
+//      map<number,string>( val => (val * 10).toString() )
+// )
+// .subscribe( console.log );
 
-const observer = {
-     next: val => console.log('next:', val),
-     complete: () => console.log('complete')
-};
+const keyup$ = fromEvent<KeyboardEvent>( document, 'keyup' );
 
-const miGenerador = function*() {
-     yield 1;
-     yield 2;
-     yield 3;
-     yield 4;
-     yield 5;
-}
+const keyupCode$ = keyup$.pipe(
+     map( event => event.code )
+)
 
-const miIterable = miGenerador();
-
-// for( let id of miIterable ){
-//      console.log(id);
-     
-// }
-
-from( miIterable ).subscribe( observer );
-
-// const source$ = from([1,2,3,4,5]);
-// const source$ = of(...[1,2,3,4,5]);
-
-// const source$ = from('Eraldo');
-
-const source$ = from( fetch('https://api.github.com/users/klerith') );
-
-
-// source$.subscribe( async(resp) => {
-
-//      console.log( resp );
-
-//      const dataResp = await resp.json();
-//      console.log(dataResp);   
-     
-// });
-
-// source$.subscribe( observer );
+keyupCode$.subscribe( code => console.log('map', code) );
