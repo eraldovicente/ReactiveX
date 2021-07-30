@@ -1,3 +1,4 @@
+// É um subscriber
 import { asyncScheduler } from 'rxjs';
 
 // setTimeout(() => {}, 3000);
