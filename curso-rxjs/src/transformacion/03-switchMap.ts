@@ -3,8 +3,8 @@ import { debounceTime, mergeMap, pluck, switchMap } from 'rxjs/operators';
 
 import { ajax } from 'rxjs/ajax';
 
-import { GithubUsersResp } from './interfaces/github-users.interfaces';
-import { GithubUser } from './interfaces/github-user.interface';
+import { GithubUsersResp } from '../interfaces/github-users.interfaces';
+import { GithubUser } from '../interfaces/github-user.interface';
 
 
 // Referencias
