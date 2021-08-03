@@ -1,22 +1,29 @@
+import { fromEvent } from 'rxjs';
+import { debounceTime, map, pluck } from 'rxjs/operators';
+
 import { ajax } from 'rxjs/ajax';
 
-const url = 'https://httpbin.org/delay/1';
+// Referencias
+const body = document.querySelector('body');
+const textInput = document.createElement('input');
+const orderList = document.createElement('ol');
+body.append( textInput, orderList );
 
-// ajax.put( url, {
-//      id: 1,
-//      nombre: 'Fernando'
-// }, {
-//      'mi-token': 'ABC123'
-// }).subscribe( console.log );
+// Streams
+const input$ = fromEvent<KeyboardEvent>( textInput, 'keyup' );
 
-ajax({
-     url: url,
-     method: 'POST',
-     headers: {
-          'mi-token': 'ABC123'
-     },
-     body: {
-          id: 1,
-          nombre: 'Fernando'
-     }
-}).subscribe( console.log );
+input$.pipe(
+     debounceTime(500),
+     map( event => {
+          const texto = event.target['value'];
+
+          return ajax.getJSON(
+               `https://api.github.com/users/${ texto }`
+          )
+     })
+).subscribe( resp => {
+     resp.pipe(
+          pluck('url')
+     )
+     .subscribe( console.log )
+});
