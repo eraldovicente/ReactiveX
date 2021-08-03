@@ -3,8 +3,9 @@ import { debounceTime, map, mergeAll, pluck } from 'rxjs/operators';
 
 import { ajax } from 'rxjs/ajax';
 
-import { GithubUser } from './interfaces/github-user.interface';
-import { GithubUsersResp } from './interfaces/github-users.interfaces';
+import { GithubUsersResp } from '../interfaces/github-users.interfaces';
+import { GithubUser } from '../interfaces/github-user.interface';
+
 
 // Referencias
 const body = document.querySelector('body');
