@@ -1,11 +1,10 @@
-import { fromEvent } from 'rxjs';
-import { auditTime, map, tap } from 'rxjs/operators';
 
 
-const click$ = fromEvent<PointerEvent>( document, 'click' );
+const url = 'https://api.github.com/useXXXXrs?per_page=5';
 
-click$.pipe(
-     map( ({ x }) => x ),
-     tap(val => console.log('tap', val) ),
-     auditTime(5000)
-).subscribe( console.log );
+const fetchPromesa = fetch( url );
+
+fetchPromesa
+     .then( resp => resp.json() )
+     .then( data => console.log('data:', data) )
+     .catch( err => console.warn('error en usuarios', err ) )
