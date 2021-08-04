@@ -1,22 +1,38 @@
-import { forkJoin, of } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
-import { catchError } from 'rxjs/operators';
+/**
+ * Ejercicio: 
+ * El objetivo de es realizar la misma impresión, pero usando observables
+ * Nota: NO hay que usar el ciclo "FOR OF", usar un observable y llamar la función capitalizar
+ */
+
+import { of } from "rxjs";
+import { map } from "rxjs/operators";
+
+/**
+ * Salida esperada:
+ * Batman
+ * Joker
+ * Doble Cara
+ * Pingüino
+ * Hiedra Venenosa
+ */
+ (() =>{
 
 
-
-const GITHUB_API_URL = 'https://api.github.com/users';
-const GITHUB_USER = 'klerith';
-
-forkJoin({
-     usuario: ajax.getJSON(
-          `${ GITHUB_API_URL }/${ GITHUB_USER }`
-     ),
-     repos: ajax.getJSON(
-          `${ GITHUB_API_URL }/${ GITHUB_USER }/repos`
-     ),
-     gists: ajax.getJSON(
-          `${ GITHUB_API_URL }/${ GITHUB_USER }/gists`
-     ),
-}).pipe(
-     catchError( err => of(err.message) )
-).subscribe( console.log );
+     const nombres = ['batman', 'joker', 'doble cara', 'pingüino', 'hiedra venenosa'];
+   
+     const capitalizar = (nombre: string) => nombre.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+   
+   
+     // Cambiar este FOR OF, por un observable y capitalizar las emisiones
+     // for( let nombre of nombres ) {
+     //   console.log( capitalizar(nombre) )
+     // }
+   
+     of( ...nombres ).pipe(
+          map( capitalizar )
+     ).subscribe( console.log );
+   
+   
+   })();
+   
+   
